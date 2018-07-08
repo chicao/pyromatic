@@ -11,8 +11,10 @@ The original project was done in Flask and can be found [here](https://github.co
 https://chrisyeh96.github.io/2017/08/08/definitive-guide-python-imports.html
 
 
-## Relevant nomes
+## Relevant notes
 
+
+### [Abstract Base Classes](http://blog.thedigitalcatonline.com/blog/2016/04/03/abstract-base-classes-in-python/)
     The difference between a real and a virtual subclass is very simple: a real subclass 
     knows its relationship with the parent class through its __bases__ attribute, and can 
     thus implicitly delegate the resolution of missing methods. A virtual subclass knows 

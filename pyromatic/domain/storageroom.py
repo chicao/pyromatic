@@ -22,5 +22,4 @@ class StorageRoom(object):
 
         return room
 
-# ????
 DomainModel.register(StorageRoom)
