@@ -1,8 +1,8 @@
 import pytest
 from unittest import mock
 
-
 from pyromatic.domain.storageroom import StorageRoom
+from pyromatic.use_cases import request_objects as ro
 from pyromatic.use_cases import storageroom_use_cases as uc
 
 
@@ -47,8 +47,11 @@ def test_storageroom_list_without_parameters(domain_storagerooms):
     repo = mock.Mock()
     repo.list.return_value = domain_storagerooms
     
-    storageroom_list_use_case = uc.SstorageRoomListUseCase(repo)
-    result = storageroom_list_use_case.execute()
+    storageroom_list_use_case = uc.StorageRoomListUseCase(repo)
+    request_object = ro.StorageRoomListRequestObject.from_dict({})
     
+    response_object = storageroom_list_use_case.execute(request_object)
+    assert bool(response_object) is True
     repo.list.assert_called_with()
-    assert result == domain_storagerooms
+    
+    assert response_object == domain_storagerooms

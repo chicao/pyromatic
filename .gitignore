@@ -1,3 +1,8 @@
+# Kate tmp files
+.*~
+#KDE dir files
+.directory
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
