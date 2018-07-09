@@ -9,7 +9,7 @@ def test_build_storageroom_list_request_object_without_parameters():
 
 
 def test_build_storageroom_list_request_object_from_empty_dict():
-    req = ro.StorageRoomListRequestObject.from_dict()
+    req = ro.StorageRoomListRequestObject.from_dict({})
 
     assert req.filters is None
     assert bool(req) is True

@@ -46,12 +46,12 @@ def domain_storagerooms():
 def test_storageroom_list_without_parameters(domain_storagerooms):
     repo = mock.Mock()
     repo.list.return_value = domain_storagerooms
-    
+
     storageroom_list_use_case = uc.StorageRoomListUseCase(repo)
     request_object = ro.StorageRoomListRequestObject.from_dict({})
-    
+
     response_object = storageroom_list_use_case.execute(request_object)
     assert bool(response_object) is True
     repo.list.assert_called_with()
-    
+
     assert response_object == domain_storagerooms
