@@ -17,7 +17,7 @@ class StorageRoom(object):
             size=data['size'],
             price=data['price'],
             latitude=data['latitude'],
-            longitude=data['longitude'],
+            longitude=data['longitude']
         )
 
         return room
