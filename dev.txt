@@ -1,0 +1,8 @@
+-r prod.txt
+
+pip
+wheel
+flake8
+Sphinx
+click
+freezegun
