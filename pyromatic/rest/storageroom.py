@@ -65,13 +65,6 @@ def storageroom(request):
     logger.info('[RESPONSE:VALUE]: {}'.format(response.value))
     logger.info('[RESPONSE:TYPE]: {}'.format(response.type))
 
-    try:
-        logger.info('[RESPONSE:OBJ]')
-        resp = Response(json=response.value,
-                        content_type='application/json',
-                        status=STATUS_CODES[response.type])
-    except Exception as exc:
-        logger.info('[EXCEPTION]: {} : {}'.format(exc.__class__.__name__, exc))
-        resp = None
-
-    return resp
+    return Response(json=response.value,
+                    content_type='application/json',
+                    status=STATUS_CODES[response.type])
