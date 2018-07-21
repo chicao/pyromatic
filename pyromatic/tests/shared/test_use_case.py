@@ -1,7 +1,7 @@
 from unittest import mock
 
-from rentomatic.shared import request_object as req, response_object as res
-from rentomatic.shared import use_case as uc
+from pyromatic.shared import request_object as req, response_object as res
+from pyromatic.shared import use_case as uc
 
 
 def test_use_case_cannot_process_valid_requests():
@@ -13,7 +13,7 @@ def test_use_case_cannot_process_valid_requests():
     response = use_case.execute(valid_request_object)
 
     assert not response
-    assert response.type == res.ResponseFAilure.SYSTEM_ERROR
+    assert response.type == res.ResponseFailure.SYSTEM_ERROR
     assert response.message == \
         'NotImplementedError: process_request() not implemented by UseCase class'
 

@@ -1,4 +1,4 @@
-from rentomatic.shared import use_case as uc
+from pyromatic.shared import use_case as uc
 from pyromatic.shared import response_object as res
 
 
