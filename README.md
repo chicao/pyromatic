@@ -103,16 +103,25 @@ https://www.infoq.com/news/2016/10/service-based-architecture
 
 ### General REST
 
-https://dzone.com/articles/restful-web-services-with-python-flask
+#### 1) [Clean architectures in Python: a step-by-step example](http://blog.thedigitalcatonline.com/blog/2016/11/14/clean-architectures-in-python-a-step-by-step-example/)
 
+    Very insightful REST API tutorial, with Python and Flask, guided by Clean Archtecture principles.
+    Not a quick start, but very good on structure and domain bounds definition
+
+Further content:
+
+* https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html
+* https://blog.8thlight.com/uncle-bob/2014/05/12/TheOpenClosedPrinciple.html
+* https://www.youtube.com/watch?v=HhNIttd87xs
+* http://www.taimila.com/blog/ddd-and-testing-strategy/
+
+<!--
+https://dzone.com/articles/restful-web-services-with-python-flask
 https://realpython.com/create-a-rest-api-in-minutes-with-pyramid-and-ramses/
 https://medium.com/@ssola/building-microservices-with-python-part-i-5240a8dcc2fb
-http://blog.thedigitalcatonline.com/blog/2016/11/14/clean-architectures-in-python-a-step-by-step-example/
-
-
 https://www.fullstackpython.com/api-creation.html
+-->
 ### Techs
-
 https://www.toptal.com/python/orchestrating-celery-python-background-jobs
 
 ### Guides
