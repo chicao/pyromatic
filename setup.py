@@ -53,8 +53,5 @@ setup(
         'paste.app_factory': [
             'main = pyromatic:main',
         ],
-        'console_scripts': [
-            'initialize_pyromatic_db = pyromatic.scripts.initializedb:main',
-        ],
     },
 )
