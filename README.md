@@ -40,12 +40,23 @@ https://chrisyeh96.github.io/2017/08/08/definitive-guide-python-imports.html
 
 ### [WSGI - Web Server Gateway Interface](https://www.python.org/dev/peps/pep-3333/)
 
+**(pronounced "whiz-gee" with a hard "g" or "whiskey")**
+
+WSGI is a descendant of CGI, or Common Gateway Interface. When the web was just taking
+baby steps, CGI proliferated because it worked with many languages, and there were no
+other solutions. On the downside, it was slow and limited. Python apps could only use
+CGI, mod_python, Fast CGI or some other flavor of a web server. WSGI was developed to
+create a standard interface to route web apps and frameworks to web servers.
+
 * It's an interface specification
 * Designed to guide the construction application and client communication
 * Server and application sides are specified at PEP 3333
 * It can be stacked
 * The ones in the middle (middleware), must implement both sides of the specification (client and server)
 * A WSGI compliant server receives the request, pass it to the application and send it back the response returned by the application. It should do just that
+
+
+Check [this](https://blog.appdynamics.com/engineering/an-introduction-to-python-wsgi-servers-part-1/) awesome post on WSGI web apps and options.
 
 
 [WSGI tutorial](http://wsgi.tutorial.codepoint.net/)
@@ -121,3 +132,20 @@ The second is entry points. These are references to Python objects in your
 packages that are named and have a specific protocol. “Protocol” here is just a
 way of saying that we will call them with certain arguments, and expect a
 specific return value.
+
+In Pyramid, behind the curtains, the pyramid.paster package takes care of handling
+the selected loader, in our case the PasteDeploy's loadapp. The app is configured
+using the imported loader but is found by the `plaster` lib that seeks for
+**pkg_resources entry points**. From the docs:
+
+    This script can support any config format so long as the application (or the user)
+    has installed the loader they expect to use. For example, pip install
+    plaster_pastedeploy. The loader is then found by plaster.get_settings() based on
+    the specific config uri provided. The application does not need to configure the
+    loaders. They are discovered via pkg_resources entrypoints and registered for
+    specific schemes.
+
+So, although we see code that are unrelated on the memory level (because loadapp and
+pyramid.paster apparently doesn't pass it around the app to each other), they do
+deal with the same application because the same configuration file  used by both
+mentions the same Python entry point: `egg:pyromatic:main`
