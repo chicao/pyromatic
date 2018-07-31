@@ -14,7 +14,8 @@ The original project was done in Flask and can be found [here](https://github.co
 * Implement XML serializers for the project entitities
 
 * Add logging
-
+* Add per pyramid request tweens
+<!-- https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/advanced-features.html?highlight=Response -->
 ## REFS
 
 https://chrisyeh96.github.io/2017/08/08/definitive-guide-python-imports.html
