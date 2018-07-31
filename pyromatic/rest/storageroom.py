@@ -65,6 +65,6 @@ def storageroom(request):
     logger.info('[RESPONSE:VALUE]: {}'.format(response.value))
     logger.info('[RESPONSE:TYPE]: {}'.format(response.type))
 
-    return Response(json=response.value,
+    return Response(json=json.loads(json.dumps(response.value, cls=ser.StorageRoomEncoder)),
                     content_type='application/json',
                     status=STATUS_CODES[response.type])
