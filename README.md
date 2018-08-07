@@ -4,18 +4,25 @@ This is an adaptation of the Rent-o-matic project as described in the
 [Leonardo Giordani blog post about Clean Architecture with Python](http://blog.thedigitalcatonline.com/blog/2016/11/14/clean-architectures-in-python-a-step-by-step-example/).
 The original project was done in Flask and can be found [here](https://github.com/lgiordani/rentomatic).
 
+### REST - REpresentational State Transfer
+
+
+## ISSUES
+
+@chicao https://github.com/chicao/pyromatic/issues/1
 
 ## TODOS
 
 * Implement another layer relative to data handling. In this case, the repository
   deals directly with information at memory and we want to be able to retrieve and
-  save it in the database
-
+  save it in the database.
 * Implement XML serializers for the project entitities
-
 * Add logging
-* Add per pyramid request tweens
+* Add a async layer for distributed message passing
+* Add per request pyramid tweens
+
 <!-- https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/advanced-features.html?highlight=Response -->
+
 ## REFS
 
 https://chrisyeh96.github.io/2017/08/08/definitive-guide-python-imports.html
