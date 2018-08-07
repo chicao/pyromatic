@@ -26,7 +26,7 @@ class StorageRoomCreateRequestObject(ValidRequestObject):
     @classmethod
     def from_dict(cls, data):
         invalid_req = InvalidRequestObject()
-        if 'filters' in data and not isinstance(data['filters'], collections.Mapping):
+        if 'data' in data and not isinstance(data['data'], collections.Mapping):
             invalid_req.add_error('data', 'Is not iterable')
 
         if invalid_req.has_errors():

@@ -8,7 +8,7 @@ class MemRepo:
         if entries:
             self._entries.extend(entries)
 
-    def _check(self, element, key, value):
+    def _check_filter(self, element, key, value):
         if '__' not in key:
             key = key + '__eq'
 
@@ -27,6 +27,7 @@ class MemRepo:
 
         return getattr(element[key], operator)(value)
 
+
     def list(self, filters=None):
         if not filters:
             return self._entries
@@ -35,14 +36,19 @@ class MemRepo:
         result.extend(self._entries)
 
         for key, value in filters.items():
-            result = [e for e in result if self._check(e, key, value)]
+            result = [e for e in result if self._check_filter(e, key, value)]
 
         return [sr.StorageRoom.from_dict(r) for r in result]
 
 
     def create(self, data=None):
+        storage_room_dict = {}
         if not data:
-            return self._entries
+            return None
 
-        storage_room_dict = val.validate(data) # responsavel por validar objs
+        try:
+            storage_room_dict = val.validate(data) # responsavel por validar objs
+        except InvalidStorageRoomDataError as exc:
+            return None
+
         return sr.StorageRoom.from_dict(storage_room_dict)
