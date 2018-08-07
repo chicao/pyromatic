@@ -1,4 +1,5 @@
 from pyromatic.domain import storageroom as sr
+from pyromatic.repository.validators import storageroom_validator as val
 
 
 class MemRepo:
@@ -37,3 +38,11 @@ class MemRepo:
             result = [e for e in result if self._check(e, key, value)]
 
         return [sr.StorageRoom.from_dict(r) for r in result]
+
+
+    def create(self, data=None):
+        if not data:
+            return self._entries
+
+        storage_room_dict = val.validate(data) # responsavel por validar objs
+        return sr.StorageRoom.from_dict(storage_room_dict)
