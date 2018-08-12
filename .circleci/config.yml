@@ -39,8 +39,6 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r test.txt
-            pip install -r dev.txt
             python setup.py develop
 
       - save_cache:
