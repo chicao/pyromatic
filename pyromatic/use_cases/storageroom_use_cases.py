@@ -12,7 +12,7 @@ class StorageRoomListUseCase(uc.UseCase):
         return res.ResponseSuccess(value=domain_storageroom)
 
 
-class StorageRoomCreatUseCase(uc.UseCase):
+class StorageRoomCreateUseCase(uc.UseCase):
 
     def __init__(self, repo):
         self.repo = repo
