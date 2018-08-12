@@ -1,5 +1,5 @@
 from pyromatic.domain import storageroom as sr
-from pyromatic.repository.validators import storageroom_validator as val
+#from pyromatic.repository.validators import storageroom_validator as val
 
 
 class MemRepo:
@@ -42,13 +42,22 @@ class MemRepo:
 
 
     def create(self, data=None):
-        storage_room_dict = {}
+
         if not data:
-            return None
+            raise ValueError('No data was given for room creation')
 
-        try:
-            storage_room_dict = val.validate(data) # responsavel por validar objs
-        except InvalidStorageRoomDataError as exc:
-            return None
+        storage_room_keys = {'code',
+                             'size',
+                             'price',
+                             'longitude', 
+                             'latitude'}
 
-        return sr.StorageRoom.from_dict(storage_room_dict)
+        data_keys = {key for key in data.keys()}
+        if data_keys != storage_room_keys:
+            invalid = [k for k in data_keys if k not in storage_room_keys]
+            raise ValueError('Keys {} are invalid'.format(', '.join(invalid)))
+
+        room = sr.StorageRoom.from_dict(data)
+        self._entries.append(room)
+
+        return room
