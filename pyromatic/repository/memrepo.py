@@ -1,5 +1,5 @@
 from pyromatic.domain import storageroom as sr
-#from pyromatic.repository.validators import storageroom_validator as val
+from pyromatic.shared.utils import generate_key
 
 
 class MemRepo:
@@ -45,6 +45,7 @@ class MemRepo:
 
         if not data:
             raise ValueError('No data was given for room creation')
+        data['code'] = generate_key(**data)
 
         storage_room_keys = {'code',
                              'size',
