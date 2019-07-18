@@ -1,5 +1,6 @@
 import logging
 import json
+import hashlib
 from pyramid.view import view_config
 from pyramid.response import Response
 
@@ -16,29 +17,31 @@ STATUS_CODES = {
     res.ResponseFailure.SYSTEM_ERROR: 500
 }
 
-storageroom1 = {
-    'code': 'f853578c-fc0f-4e65-81b8-566c5dffa35a',
-    'size': 215,
-    'price': 39,
-    'longitude': '-0.09998975',
-    'latitude': '51.75436293',
-}
+mem_repo = [
+    {
+        'code': 'f853578c-fc0f-4e65-81b8-566c5dffa35a',
+        'size': 215,
+        'price': 39,
+        'longitude': '-0.09998975',
+        'latitude': '51.75436293'
+    },
+    {
+        'code': 'fe2c3195-aeff-487a-a08f-e0bdc0ec6e9a',
+        'size': 405,
+        'price': 66,
+        'longitude': '0.18228006',
+        'latitude': '51.74640997'
+    },
+    {
+        'code': '913694c6-435a-4366-ba0d-da5334a611b2',
+        'size': 56,
+        'price': 60,
+        'longitude': '0.27891577',
+        'latitude': '51.45994069'
+    }
+]
 
-storageroom2 = {
-    'code': 'fe2c3195-aeff-487a-a08f-e0bdc0ec6e9a',
-    'size': 405,
-    'price': 66,
-    'longitude': '0.18228006',
-    'latitude': '51.74640997',
-}
-
-storageroom3 = {
-    'code': '913694c6-435a-4366-ba0d-da5334a611b2',
-    'size': 56,
-    'price': 60,
-    'longitude': '0.27891577',
-    'latitude': '51.45994069',
-}
+repo = mr.MemRepo(mem_repo)
 
 logger = logging.getLogger(__name__)
 
@@ -56,8 +59,6 @@ def storageroom(request):
             qrystr_params['filters'][arg.replace('filter_', '')] = values
 
     request_object = req.StorageRoomListRequestObject.from_dict(qrystr_params)
-
-    repo = mr.MemRepo([storageroom1, storageroom2, storageroom3])
     use_case = uc.StorageRoomListUseCase(repo)
 
     response = use_case.execute(request_object)
@@ -65,6 +66,35 @@ def storageroom(request):
     logger.info('[RESPONSE:VALUE]: {}'.format(response.value))
     logger.info('[RESPONSE:TYPE]: {}'.format(response.type))
 
-    return Response(json=json.loads(json.dumps(response.value, cls=ser.StorageRoomEncoder)),
+    return Response(json=json.loads(json.dumps(response.value,
+                                               cls=ser.StorageRoomEncoder)),
+                    content_type='application/json',
+                    status=STATUS_CODES[response.type])
+
+
+@view_config(route_name='storagerooms.create', request_method='POST', renderer='json')
+def create_storageroom(request):
+    logger.info('[CALLED] storagerooms create')
+
+    try:
+        storage_json = request.json_body
+    except json.decoder.JSONDecodeError as exc:
+        error = {'status': 400,
+                 'success': False,
+                 'message': 'Unexpected JSON format. Can\'t decode it'}
+
+        return Response(json=error,
+                        content_type='application/json',
+                        status=error['status'])
+
+    request_object = req.StorageRoomCreateRequestObject.from_dict(storage_json)
+    use_case = uc.StorageRoomCreateUseCase(repo)
+    response = use_case.execute(request_object)
+
+    logger.info('[RESPONSE:VALUE]: {}'.format(response.value.__dict__))
+    logger.info('[RESPONSE:TYPE]: {}'.format(response.type))
+
+    return Response(json=json.loads(json.dumps(response.value,
+                                               cls=ser.StorageRoomEncoder)),
                     content_type='application/json',
                     status=STATUS_CODES[response.type])

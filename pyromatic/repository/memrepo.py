@@ -1,4 +1,5 @@
 from pyromatic.domain import storageroom as sr
+from pyromatic.shared.utils import generate_key
 
 
 class MemRepo:
@@ -7,7 +8,7 @@ class MemRepo:
         if entries:
             self._entries.extend(entries)
 
-    def _check(self, element, key, value):
+    def _check_filter(self, element, key, value):
         if '__' not in key:
             key = key + '__eq'
 
@@ -26,6 +27,7 @@ class MemRepo:
 
         return getattr(element[key], operator)(value)
 
+
     def list(self, filters=None):
         if not filters:
             return self._entries
@@ -34,6 +36,29 @@ class MemRepo:
         result.extend(self._entries)
 
         for key, value in filters.items():
-            result = [e for e in result if self._check(e, key, value)]
+            result = [e for e in result if self._check_filter(e, key, value)]
 
         return [sr.StorageRoom.from_dict(r) for r in result]
+
+
+    def create(self, data=None):
+
+        if not data:
+            raise ValueError('No data was given for room creation')
+        data['code'] = generate_key(**data)
+
+        storage_room_keys = {'code',
+                             'size',
+                             'price',
+                             'longitude', 
+                             'latitude'}
+
+        data_keys = {key for key in data.keys()}
+        if data_keys != storage_room_keys:
+            invalid = [k for k in data_keys if k not in storage_room_keys]
+            raise ValueError('Keys {} are invalid'.format(', '.join(invalid)))
+
+        room = sr.StorageRoom.from_dict(data)
+        self._entries.append(room)
+
+        return room

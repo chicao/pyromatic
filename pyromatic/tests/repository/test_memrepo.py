@@ -91,3 +91,19 @@ def test_repository_list_with_filters_code(storagerooms):
 
     _check_results(repo.list(filters={'code': '913694c6-435a-4366-ba0d-da5334a611b2'}),
                    [storageroom3])
+
+
+def test_repository_create_with_invalid_dict_data():
+    pass
+
+
+def test_repository_create_with_valid_dict_data():
+    pass
+
+
+def test_repository_create_with_valid_nondict_data():
+    pass
+
+
+def test_repository_create_with_invalid_nondict_data():
+    pass

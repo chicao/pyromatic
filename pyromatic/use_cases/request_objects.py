@@ -17,3 +17,19 @@ class StorageRoomListRequestObject(ValidRequestObject):
             return invalid_req
 
         return StorageRoomListRequestObject(filters=data.get('filters', None))
+
+
+class StorageRoomCreateRequestObject(ValidRequestObject):
+    def __init__(self, data):
+        self.data = data
+
+    @classmethod
+    def from_dict(cls, data):
+        invalid_req = InvalidRequestObject()
+        if 'data' in data and not isinstance(data['data'], collections.Mapping):
+            invalid_req.add_error('data', 'Is not iterable')
+
+        if invalid_req.has_errors():
+            return invalid_req
+
+        return StorageRoomCreateRequestObject(data=data.get('data', None))
